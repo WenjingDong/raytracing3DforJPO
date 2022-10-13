@@ -1,0 +1,5 @@
+Each folder contains necessary source files.
+charneyruns: contains runs with steady/unsteady charney turbulent flows, burger number =1 or not. 
+QGruns: contains source code for the QG flow and synthetic flow created using the QG flow.
+flowwithverticalvelocity: vertical velocity can be non-zero (results are not included in the paper).
+forced: forced dissipative runs (the paper does not include results from forced dissipative runs)
