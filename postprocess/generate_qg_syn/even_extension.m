@@ -1,4 +1,5 @@
-% remove higher vertical modes to satifisy no flux boundary condition better
+% remove higher vertical modes to satifisy no flux boundary condition 
+% first, make an even extension of streamfunction in vertical direction
 clear;
 load('psi.mat');
 [nx,ny,nz] = size(psi);
@@ -17,16 +18,16 @@ Ly = Lx; Lz = 2*Lx/1000;
 kxg = kxg * 2*pi/Lx; kyg = kyg*2*pi/Ly; kzg = kzg*2*pi/Lz;
 ikxg = 1i * kxg; ikyg = 1i * kyg; ikzg = 1i * kzg;
 
-% cut-off
+% remove high vertical modes
 cutk = 20;
 psihat = fft(psi_ext, [], 3);
 psihat(:,:,cutk+1:NZ-cutk+1) = 0;
 psi_filter = ifft(psihat, [], 3, 'symmetric');
 psi = psi_filter;
 
-save('psi_filter.mat','psi');
+save('psi_filter.mat','psi'); 
 
-% compute velocity, shear
+% scale the field to Ro=0.1
 psihat = fftn(psi)/(nx*ny*NZ);
 zetahat = (ikxg.^2 + ikyg.^2) .* psihat;
 zeta = real(ifftn(zetahat))*nx*ny*NZ;
@@ -41,6 +42,9 @@ uzhat = ikzg .* uhat;
 vxhat = ikxg .* vhat;
 vzhat = ikzg .* vhat;
 
+save('psiN100.mat','psihat','ughat','uxghat','uyghat','uzghat','vghat','vxghat','vyghat','vzghat');
+
+% generate a velocity field eigen vector analysis
 u = real(ifftn(uhat))*nx*ny*NZ;
 v = real(ifftn(vhat))*nx*ny*NZ;
 ux = real(ifftn(uxhat))*nx*ny*NZ;
