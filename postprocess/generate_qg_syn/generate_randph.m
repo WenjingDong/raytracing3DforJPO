@@ -1,5 +1,5 @@
 clear;
-rescale = 0;% rescale vertical length scale or not...
+rescale = 0;% rescale vertical length scale or not.... For the simulations in the paper, rescale=0. rescale happens in the main program.
 load('psiN100.mat');
 [nx, ny, nz] = size(psihat);
 N = 100; f = 1;
